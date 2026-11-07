@@ -1,0 +1,8 @@
+Copyright (c) 2026 Niko Lappalainen. All rights reserved.
+
+Rights granted to Traficom in the Challenge Work are governed by
+the Since AI challenge terms accepted by the contributors,
+including section 5.4.
+
+No additional licence is granted by this notice.
+Third-party components remain subject to their respective licences.
