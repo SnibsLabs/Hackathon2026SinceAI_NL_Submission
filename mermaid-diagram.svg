@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500.79 950" width="1500.79" height="950" style="--bg:#18181B;--fg:#F4F4F5;--line:#71717A;--muted:#A1A1AA;--surface:#27272A;--border:#3F3F46;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+  <marker id="arrowhead-start" markerWidth="8" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse">
+    <polygon points="8 0, 0 2.5, 8 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+</defs>
+<g class="subgraph" data-id="UI_Inputs" data-label="1. User Inputs &amp; Ingestion Layer">
+  <rect x="329.85370833333343" y="40" width="785.9019999999998" height="164.5" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="329.85370833333343" y="40" width="785.9019999999998" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="341.85370833333343" y="54" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">1. User Inputs &amp; Ingestion Layer</text>
+</g>
+<g class="subgraph" data-id="Deterministic_Engine" data-label="2. Deterministic Calculation Core (Class InterferenceEngine)">
+  <rect x="348.30724999999995" y="264.5" width="924.074" height="454.8" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="348.30724999999995" y="264.5" width="924.074" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="360.30724999999995" y="278.5" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">2. Deterministic Calculation Core (Class InterferenceEngine)</text>
+</g>
+<g class="subgraph" data-id="UI_Outputs" data-label="3. Visual Presentation &amp; Actionable Evidence">
+  <rect x="40" y="779.3" width="1420.79" height="130.7" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="40" y="779.3" width="1420.79" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="52" y="793.3" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">3. Visual Presentation &amp; Actionable Evidence</text>
+</g>
+<polyline class="edge" data-from="A1" data-to="B1" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="996.9002083333332,180.05 996.9002083333332,316 574.1222499999999,316 574.1222499999999,347.31666666666666" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="A2" data-to="B1" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="739.8477083333333,196.95000000000002 739.8477083333333,316 574.1222499999999,316 574.1222499999999,347.31666666666666" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="A1" data-to="B2" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="996.9002083333332,180.05 996.9002083333332,316 973.9324166666665,316 973.9324166666665,347.31666666666666" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="A2" data-to="B2" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="739.8477083333333,196.95000000000002 739.8477083333333,316 973.9324166666665,316 973.9324166666665,347.31666666666666" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="A1" data-to="B3" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="996.9002083333332,180.05 996.9002083333332,316 1096.46875,316 1096.46875,480.1" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="A3" data-to="B4" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="465.7522083333334,180.05 465.7522083333334,574.8 746.8872499999999,574.8 746.8872499999999,598.8" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="B1" data-to="C2" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="574.1222499999999,418.0166666666667 574.1222499999998,749.3 168.8589999999998,749.3 168.85900000000004,823.3" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="B2" data-to="C1" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="973.9324166666665,434.9166666666667 973.9324166666665,457.5083333333333 1331.5604999999998,457.5083333333333 1331.5604999999998,823.3" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="B4" data-to="C3" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="746.8872499999999,703.3 746.8872499999999,763.3 436.656,763.3 436.656,823.3" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="B4" data-to="C4" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="746.8872499999999,703.3 746.8872499999999,763.3 1054.501,763.3 1054.501,823.3" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="B4" data-to="C5" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="746.8872499999999,703.3 746.8872499999999,763.3 741.1324999999999,763.3 741.1324999999999,823.3" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="B2" data-to="B3" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="973.9324166666665,434.9166666666667 973.9324166666665,457.5083333333333 1096.46875,457.5083333333333 1096.46875,480.1" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="B3" data-to="B4" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1096.46875,550.8000000000001 1096.46875,574.8 746.8872499999999,574.8 746.8872499999999,598.8" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<g class="node" data-id="A1" data-label="Satellite Filing Parameters
+• Downlink Freq &amp; BW (MHz)
+• Peak EIRP (dBW) &amp; Ref BW
+• GSO Longitude (°E)" data-shape="rectangle">
+  <rect x="894.0447083333332" y="92.45" width="205.71099999999998" height="87.60000000000001" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="996.9002083333332" y="136.25" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="996.9002083333332" dy="-20.8">Satellite Filing Parameters</tspan><tspan x="996.9002083333332" dy="16.900000000000002">• Downlink Freq &amp; BW (MHz)</tspan><tspan x="996.9002083333332" dy="16.900000000000002">• Peak EIRP (dBW) &amp; Ref BW</tspan><tspan x="996.9002083333332" dy="16.900000000000002">• GSO Longitude (°E)</tspan></text>
+</g>
+<g class="node" data-id="A2" data-label="National Protected Stations
+• 874 Stations (XLSX / CSV)
+• Coordinates (Lat/Lon/AGL)
+• Protected RX &amp; TX Freqs
+• License Classes (BC, MVV, Fixed)" data-shape="rectangle">
+  <rect x="613.6507083333333" y="92.45" width="252.39399999999992" height="104.50000000000001" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="739.8477083333333" y="144.70000000000002" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="739.8477083333333" dy="-29.250000000000004">National Protected Stations</tspan><tspan x="739.8477083333333" dy="16.900000000000002">• 874 Stations (XLSX / CSV)</tspan><tspan x="739.8477083333333" dy="16.900000000000002">• Coordinates (Lat/Lon/AGL)</tspan><tspan x="739.8477083333333" dy="16.900000000000002">• Protected RX &amp; TX Freqs</tspan><tspan x="739.8477083333333" dy="16.900000000000002">• License Classes (BC, MVV, Fixed)</tspan></text>
+</g>
+<g class="node" data-id="A3" data-label="Regulatory Threshold Selector
+• M4 Baseline (-144 dBW/m²/4kHz)
+• M15 Stricter Limit (-154 dBW/m²)
+• ITU RR Article 21 Table 21-4" data-shape="rectangle">
+  <rect x="345.85370833333343" y="92.45" width="239.79699999999994" height="87.60000000000001" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="465.7522083333334" y="136.25" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="465.7522083333334" dy="-20.8">Regulatory Threshold Selector</tspan><tspan x="465.7522083333334" dy="16.900000000000002">• M4 Baseline (-144 dBW/m²/4kHz)</tspan><tspan x="465.7522083333334" dy="16.900000000000002">• M15 Stricter Limit (-154 dBW/m²)</tspan><tspan x="465.7522083333334" dy="16.900000000000002">• ITU RR Article 21 Table 21-4</tspan></text>
+</g>
+<g class="node" data-id="B1" data-label="Spectral Overlap Check
+overlap = max(0, min(sat_max, rx_max) - max(sat_min, rx_min))
+&lt;i&gt;Evaluates both RX &amp; TX ('Every TX is received')&lt;/i&gt;" data-shape="rectangle">
+  <rect x="375.30724999999995" y="347.31666666666666" width="397.6299999999999" height="70.7" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="574.1222499999999" y="382.6666666666667" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="574.1222499999999" dy="-12.350000000000001">Spectral Overlap Check</tspan><tspan x="574.1222499999999" dy="16.900000000000002">overlap = max(0, min(sat_max, rx_max) - max(sat_min, rx_min))</tspan><tspan x="574.1222499999999" dy="16.900000000000002"><tspan font-style="italic">Evaluates both RX &amp; TX (&#39;Every TX is received&#39;)</tspan></tspan></text>
+</g>
+<g class="node" data-id="B2" data-label="3D Spherical GSO Geometry
+• Earth Radius R_e = 6371 km, Orbit R_s = 42157 km
+• Elevation Angle (θ) &amp; Slant Range (R_m)
+• Line-of-Sight Visibility (θ &gt; 0°)" data-shape="rectangle">
+  <rect x="808.0919166666666" y="347.31666666666666" width="331.6809999999999" height="87.60000000000001" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="973.9324166666665" y="391.1166666666667" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="973.9324166666665" dy="-20.8">3D Spherical GSO Geometry</tspan><tspan x="973.9324166666665" dy="16.900000000000002">• Earth Radius R_e = 6371 km, Orbit R_s = 42157 km</tspan><tspan x="973.9324166666665" dy="16.900000000000002">• Elevation Angle (θ) &amp; Slant Range (R_m)</tspan><tspan x="973.9324166666665" dy="16.900000000000002">• Line-of-Sight Visibility (θ &gt; 0°)</tspan></text>
+</g>
+<g class="node" data-id="B3" data-label="Power-Flux Density (PFD)
+PFD_total = EIRP - 10·log10(4π·R²)
+PFD_ref = PFD_total + 10·log10(B_ref / B_signal)" data-shape="rectangle">
+  <rect x="936.55625" y="480.1" width="319.8249999999999" height="70.7" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1096.46875" y="515.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="1096.46875" dy="-12.350000000000001">Power-Flux Density (PFD)</tspan><tspan x="1096.46875" dy="16.900000000000002">PFD_total = EIRP - 10·log10(4π·R²)</tspan><tspan x="1096.46875" dy="16.900000000000002">PFD_ref = PFD_total + 10·log10(B_ref / B_signal)</tspan></text>
+</g>
+<g class="node" data-id="B4" data-label="Tri-Level Regulatory Assessment
+Margin = PFD_calc - Threshold
+• Margin &gt; 0 dB → CRITICAL EXCEEDANCE
+• -6 dB ≤ Margin ≤ 0 dB → POTENTIAL CONCERN
+• Margin &lt; -6 dB → COMPLIANT" data-shape="rectangle">
+  <rect x="585.1222499999999" y="598.8" width="323.53000000000003" height="104.50000000000001" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="746.8872499999999" y="651.05" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="746.8872499999999" dy="-29.250000000000004">Tri-Level Regulatory Assessment</tspan><tspan x="746.8872499999999" dy="16.900000000000002">Margin = PFD_calc - Threshold</tspan><tspan x="746.8872499999999" dy="16.900000000000002">• Margin &gt; 0 dB → CRITICAL EXCEEDANCE</tspan><tspan x="746.8872499999999" dy="16.900000000000002">• -6 dB ≤ Margin ≤ 0 dB → POTENTIAL CONCERN</tspan><tspan x="746.8872499999999" dy="16.900000000000002">• Margin &lt; -6 dB → COMPLIANT</tspan></text>
+</g>
+<g class="node" data-id="C1" data-label="Geometry &amp; Visibility Map
+• Leaflet CartoDB Positron
+• Station coordinates &amp; GSO ray" data-shape="rectangle">
+  <rect x="1218.331" y="823.3" width="226.459" height="70.7" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1331.5604999999998" y="858.65" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="1331.5604999999998" dy="-12.350000000000001">Geometry &amp; Visibility Map</tspan><tspan x="1331.5604999999998" dy="16.900000000000002">• Leaflet CartoDB Positron</tspan><tspan x="1331.5604999999998" dy="16.900000000000002">• Station coordinates &amp; GSO ray</tspan></text>
+</g>
+<g class="node" data-id="C2" data-label="Dynamic Spectral Visualization
+• Chart.js multi-band overlap
+• Auto-scaled 88 MHz to 25 GHz" data-shape="rectangle">
+  <rect x="56" y="823.3" width="225.718" height="70.7" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="168.85899999999998" y="858.65" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="168.85899999999998" dy="-12.350000000000001">Dynamic Spectral Visualization</tspan><tspan x="168.85899999999998" dy="16.900000000000002">• Chart.js multi-band overlap</tspan><tspan x="168.85899999999998" dy="16.900000000000002">• Auto-scaled 88 MHz to 25 GHz</tspan></text>
+</g>
+<g class="node" data-id="C3" data-label="KPI Metrics &amp; Status Badges
+• Total / Overlaps / Exceeded / Clear" data-shape="rectangle">
+  <rect x="309.718" y="823.3" width="253.876" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="436.656" y="850.1999999999999" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="436.656" dy="-3.9000000000000012">KPI Metrics &amp; Status Badges</tspan><tspan x="436.656" dy="16.900000000000002">• Total / Overlaps / Exceeded / Clear</tspan></text>
+</g>
+<g class="node" data-id="C4" data-label="Issues Report Product Table
+• Severity, PFD, Exceedance, Location
+• One-click CSV &amp; JSON Export" data-shape="rectangle">
+  <rect x="918.6709999999999" y="823.3" width="271.65999999999997" height="70.7" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1054.501" y="858.65" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="1054.501" dy="-12.350000000000001">Issues Report Product Table</tspan><tspan x="1054.501" dy="16.900000000000002">• Severity, PFD, Exceedance, Location</tspan><tspan x="1054.501" dy="16.900000000000002">• One-click CSV &amp; JSON Export</tspan></text>
+</g>
+<g class="node" data-id="C5" data-label="Draft Formal Technical Objection
+• ITU RR Art. 9 / No. 9.52 compliance letter
+• Ready for human-in-the-loop expert sign-off" data-shape="rectangle">
+  <rect x="591.594" y="823.3" width="299.0769999999999" height="70.7" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="741.1324999999999" y="858.65" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="741.1324999999999" dy="-12.350000000000001">Draft Formal Technical Objection</tspan><tspan x="741.1324999999999" dy="16.900000000000002">• ITU RR Art. 9 / No. 9.52 compliance letter</tspan><tspan x="741.1324999999999" dy="16.900000000000002">• Ready for human-in-the-loop expert sign-off</tspan></text>
+</g>
+</svg>
