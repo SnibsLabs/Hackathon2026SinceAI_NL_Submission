@@ -45,14 +45,14 @@ Assesses cross-border terrestrial interference from neighbouring countries (**Es
 
 ## Quick Start (Zero-Dependency Static Hosting)
 
-1. Clone this repository or open  `index.html` directly in any modern browser.
-2. For **GitHub Pages**, keep `index.html`, `mermaid-diagram.svg`, and the data folder `code/` containing `default_stations.js` and `taajuusjakotaulukko_compiled.js` in the repository root.
+1. Clone this repository or open `gemini-code-1794028691323.html` (or `index.html`) directly in any modern browser.
+2. For **GitHub Pages**, keep `index.html`, `mermaid-diagram.svg`, and the data folder (`problem_to_solve/` or `code/` containing `default_stations.js` and `taajuusjakotaulukko_compiled.js`) in the repository root.
 
 ---
 
 ## Further Documentation
-- [UI Interactive Screening Engine Guide](./code/UI_INTERACTIVE_SCREENING_ENGINE_GUIDE.md) — Detailed mathematical formulas, flowchart breakdown, and customer Q&A guide.
-- [Traficom Expert Guidance Notes](./code/TRAFICOM_EXPERT_GUIDANCE.md) — Domain rules and regulatory assumptions applied in the engine.
+- [UI Interactive Screening Engine Guide](./problem_to_solve/UI_INTERACTIVE_SCREENING_ENGINE_GUIDE.md) — Detailed mathematical formulas, flowchart breakdown, and customer Q&A guide.
+- [Traficom Expert Guidance Notes](./problem_to_solve/TRAFICOM_EXPERT_GUIDANCE.md) — Domain rules and regulatory assumptions applied in the engine.
 
 ## Built With
 HTML5, JavaScript (ES6+), Tailwind CSS, Leaflet.js, OpenStreetMap / CartoDB, Chart.js, SheetJS (xlsx), Lucide Icons, JSON, SVG / Mermaid.js, PowerShell, Google Gemini / Antigravity

@@ -1,0 +1,106 @@
+================================================================================
+USER GUIDE: ITU BR IFIC SATELLITE INTERFERENCE SCREENING ENGINE
+Script: generate_full_predictions.ps1
+Challenge: Since AI 2026 - Traficom ("Saving Earth from Space Interferers")
+================================================================================
+
+1. OVERVIEW
+-----------
+generate_full_predictions.ps1 is a standalone, zero-dependency Windows PowerShell
+pipeline that screens ITU BR IFIC Space Radiocommunication Stations (SRS) Access
+databases (.mdb) against Finland's protected ground stations and the national
+Frequency Allocation Table (Taajuusjakotaulukko).
+
+Key Technical Capabilities:
+- Native .mdb Ingestion: Automatically delegates from 64-bit to 32-bit Windows
+  PowerShell (SysWOW64) to query .mdb files via Microsoft.Jet.OLEDB.4.0 without
+  requiring Microsoft Access, Python, or third-party drivers.
+- Universal Station Loader: Accepts protected station tables directly as raw
+  Excel (.xlsx), CSV (.csv), or JSON (.json) files with Finnish or English
+  headers. No manual JSON conversion is needed to test new station lists.
+- Physics & Regulatory Engine: Evaluates 3D orbital slant range and elevation
+  over Finland (GSO, LEO/MEO/HEO, Lunar/Deep-Space), clockwise True North
+  azimuth, ITU RR Article 21 (Table 21-4) dynamic elevation PFD limits, and
+  Traficom M4 (-144 dBW/m2/4kHz) coordination thresholds using filed spectral
+  power density (emiss.pwr_ds_max + s_beam.gain).
+
+
+2. QUICK START & USAGE EXAMPLES
+-------------------------------
+Open PowerShell in the script directory and run:
+
+A) Screen a New ITU BR IFIC Database (.mdb)
+   When a direct path is provided via -ExtraMdbPaths (or -MdbPath), the script
+   automatically skips the default 3074/3076 datasets and analyzes ONLY the
+   specified database(s):
+
+   .\generate_full_predictions.ps1 -ExtraMdbPaths "C:\path\to\ific3083.mdb"
+
+B) Screen Using a New Protected Frequencies Table (.xlsx / .csv / .json)
+   Pass any Excel or CSV frequency table directly via -StationsPath:
+
+   .\generate_full_predictions.ps1 -ExtraMdbPaths "C:\path\to\ific3083.mdb" `
+       -StationsPath "C:\path\to\New_Protected_Frequencies.xlsx"
+
+C) Run Default Screening (BR IFIC 3074 & 3076)
+   Running without arguments screens actual_IFIC_data\ific3074\ific3074.mdb and
+   actual_IFIC_data\ific3076\ific3076.mdb:
+
+   .\generate_full_predictions.ps1
+
+D) Write to a Custom Output Folder or Overwrite Existing Results
+   By default, the script checks if output files already exist and stops early
+   to prevent redundant runs. Use -OutputDir for a new folder or -Force to
+   overwrite existing files:
+
+   .\generate_full_predictions.ps1 -ExtraMdbPaths "C:\path\to\ific3083.mdb" -OutputDir ".\results_3083"
+   .\generate_full_predictions.ps1 -ExtraMdbPaths "C:\path\to\ific3083.mdb" -Force
+
+
+3. PARAMETERS REFERENCE
+-----------------------
+Parameter         Type       Description
+----------------  ---------  ---------------------------------------------------
+-ExtraMdbPaths    string[]   Path(s) to one or more ITU BR IFIC .mdb files to
+(Alias: -MdbPath)            analyze. Skips default 3074/3076 when specified.
+-StationsPath     string     Path to protected stations file (.xlsx, .csv, or
+                             .json). Defaults to Traficom's 874-station table.
+-OutputDir        string     Destination folder for .xlsx and .csv outputs.
+                             Defaults to the script's own folder.
+-ProjectRoot      string     Root folder of the project. Auto-detected relative
+                             to the script's own folder (zero hardcoded paths).
+-Force            switch     Re-runs analysis and overwrites existing outputs.
+
+
+4. BUILT-IN SAFEGUARDS & BENCHMARK TIMER
+----------------------------------------
+- Duplicate-Run Detection: Before loading data, the script checks whether the
+  target output files already exist in -OutputDir. If found (and -Force is not
+  set), it stops immediately (~0.1s) and lists the existing files in the console.
+- Excel File-Lock Resilience: If an output file is currently open/locked in
+  Excel during a -Force run, the script catches the lock and saves to a
+  *_NEW.xlsx / *_NEW.csv fallback file instead of crashing.
+- Execution Benchmark Timer: Prints the exact Start Time, Stop Time, per-circular
+  duration, and Total Runtime at the bottom of the console output for evaluation.
+
+
+5. GENERATED OUTPUT FILES (PER ANALYZED DATABASE)
+-------------------------------------------------
+For each database (e.g., BR_IFIC_3083), the script produces:
+1. BR_IFIC_<NUMBER>_Full_Predictions.xlsx (5-Sheet Native Excel Workbook)
+   - Sheet 1 (1_Executive_Summary_By_Notice): One row per satellite notice with
+     verdict (CRITICAL_PFD_EXCEEDANCE, POTENTIAL_CONCERN_COORD_REQUIRED,
+     COMPLIANT, BELOW_HORIZON_IN_FINLAND, etc.), worst PFD excess, and impacted
+     Finnish stakeholders.
+   - Sheet 2 (2_Finnish_Stations_874_Impact): Impact summary across all 874
+     Finnish protected stations.
+   - Sheet 3 (3_Carrier_Station_Link_Hits): Granular carrier-to-station link
+     physics (azimuth, elevation, slant range, arriving PFD vs. regulatory limit).
+   - Sheet 4 (4_Band_And_Stakeholder_Summary): Aggregated hits by Taajuusjako-
+     taulukko sub-band and affected Finnish organization.
+   - Sheet 5 (5_Earth_Stations_And_Method): Earth station notices & methodology.
+2. Companion UTF-8 CSV Extracts:
+   - BR_IFIC_<NUMBER>_Notice_Executive_Summary.csv
+   - BR_IFIC_<NUMBER>_Finnish_Stations_874_Impact.csv
+   - BR_IFIC_<NUMBER>_Carrier_Station_Link_Hits.csv
+================================================================================

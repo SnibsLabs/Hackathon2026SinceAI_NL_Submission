@@ -15,9 +15,11 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <!-- SheetJS for Excel (.xlsx, .xls) and CSV Parsing -->
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
-    <!-- Pre-compiled Default Dataset (874 Finnish Protected Stations) -->
+    <!-- Pre-compiled Default Dataset (874 Finnish Protected Stations) - supports either problem_to_solve/ or code/ folder -->
+    <script src="problem_to_solve/default_stations.js"></script>
     <script src="code/default_stations.js"></script>
-    <!-- Pre-compiled National Frequency Allocation Table (Taajuusjakotaulukko - 956 Sub-bands) -->
+    <!-- Pre-compiled National Frequency Allocation Table (Taajuusjakotaulukko) - supports either problem_to_solve/ or code/ folder -->
+    <script src="problem_to_solve/taajuusjakotaulukko_compiled.js"></script>
     <script src="code/taajuusjakotaulukko_compiled.js"></script>
     <style>
         #map { height: 350px; width: 100%; border-radius: 0.5rem; }
@@ -466,13 +468,24 @@
                                 <span>1. Select ITU BR IFIC Publication Circular / Batch:</span>
                             </label>
                             <select id="agent-batch-select" onchange="handleAgentBatchChange()" class="w-full text-xs rounded-md border-slate-300 border p-2 bg-white font-medium text-slate-800 shadow-sm focus:ring-1 focus:ring-sky-500">
-                                <option value="brific_3076" selected>★ BR IFIC No. 3076 (Challenge Target Batch) | CR/C 3076: FIN-SAT-3076 @ 2150 MHz [5 MVV Overlaps / Hard PFD Exceedance]</option>
-                                <option value="brific_3074">★ BR IFIC No. 3074 (Challenge Benchmark Batch) | CR/C 3074: EU-DVB-3074 @ 618 MHz [3 UHF TV Broadcast Overlaps]</option>
-                                <option value="brific_3076_rlan">★ BR IFIC No. 3076-RLAN (Wi-Fi 6E / Shared Band) | CR/C 3076: EURO-SAT-6G @ 5985 MHz [6 Wi-Fi 6E / RLAN Overlaps — Low Severity Note]</option>
-                                <option value="brific_3075_bt">★ BR IFIC No. 3075-ISM (Bluetooth / Wi-Fi 2.4G) | API/A 3075: BLE-IOT-SAT @ 2442 MHz [Bluetooth / Wi-Fi ISM Band — Low Severity Note]</option>
-                                <option value="brific_3070">BR IFIC No. 3070 | CR/C 3070: SOUND-GEO-FM @ 88.1 MHz [6 FM Sound Broadcast Overlaps]</option>
-                                <option value="brific_3068">BR IFIC No. 3068 | Appendix 30B: NORDIC-KU-LINK @ 13213 MHz [4 Fixed Microwave Link Overlaps]</option>
-                                <option value="brific_3065">BR IFIC No. 3065 | API/A 3065: CLEAN-PASS-GEO @ 14250 MHz [Clean Spectrum - 0 Overlaps Expected]</option>
+                                <option value="all_batches">★★ SCAN ALL LISTED ITU SATELLITES (Real IFIC 3074/3076 + Benchmark Presets vs. 874 Finnish Stations)</option>
+                                <optgroup label="Real Extracted ITU BR IFIC 3076 &amp; 3074 Database Filings (actual_IFIC_data/*.mdb)">
+                                    <option value="real_3076_rgs80e" selected>★ [REAL IFIC 3076 | ntc_id 126545192] RGS-G-80E (RUS, GSO 80°E) @ 2067.5 MHz (85M BW) — 160 FX Station Hits (Exceeds ITU Art. 21 Dynamic Angle Limit!)</option>
+                                    <option value="real_3076_roumilsat">★ [REAL IFIC 3076 | ntc_id 125520158] ROU-MILSATCOM6-21.25E (ROU, GSO 21.25°E) @ 7500 MHz (500M BW) — Fixed Link SHF Exceedance</option>
+                                    <option value="real_3076_rgss23e">★ [REAL IFIC 3076 | ntc_id 125512028] RGS-S-23E (RUS, GSO 23.0°E) @ 26375 MHz (2250M BW) — 26 GHz MVV 5G mmWave Overlap</option>
+                                    <option value="real_3074_chinasat33e">★ [REAL IFIC 3074 | ntc_id 324520184] CHINASAT-G-33.5E (CHN, GSO 33.5°E) @ 2185 MHz (30M BW) — S-Band Exceedance (+21.9 dB over M4)</option>
+                                    <option value="real_3074_qatargov25e">★ [REAL IFIC 3074 | ntc_id 124520173] QATARGOV-G1-25.5E (QAT, GSO 25.5°E) @ 2185 MHz (30M BW) — Direct Finnish Meridian 25.5°E</option>
+                                    <option value="real_3074_hispasat58w">★ [REAL IFIC 3074 | ntc_id 124520178] HISPASAT-4-58.5W (E, GSO -58.5°W) @ 11200 MHz (500M BW) — Below Horizon in Finland (Elev -11.3°)</option>
+                                </optgroup>
+                                <optgroup label="Synthetic Evaluation Presets (Controlled Band &amp; Rule Demonstrations)">
+                                    <option value="brific_3076">[Synthetic Demo] BR IFIC 3076 | FIN-SAT-3076 @ 2150 MHz [5 MVV Overlaps / Hard PFD Exceedance]</option>
+                                    <option value="brific_3074">[Synthetic Demo] BR IFIC 3074 | EU-DVB-3074 @ 618 MHz [3 UHF TV Broadcast Overlaps]</option>
+                                    <option value="brific_3076_rlan">[Synthetic Demo] BR IFIC 3076-RLAN | EURO-SAT-6G @ 5985 MHz [Wi-Fi 6E / RLAN Low-Severity Downgrade]</option>
+                                    <option value="brific_3075_bt">[Synthetic Demo] BR IFIC 3075-ISM | BLE-IOT-SAT @ 2442 MHz [2.4 GHz Bluetooth / Wi-Fi Low-Severity Downgrade]</option>
+                                    <option value="brific_3070">[Synthetic Demo] BR IFIC 3070 | SOUND-GEO-FM @ 88.1 MHz [6 FM Sound Broadcast Overlaps]</option>
+                                    <option value="brific_3068">[Synthetic Demo] BR IFIC 3068 | NORDIC-KU-LINK @ 13213 MHz [4 Fixed Microwave Link Overlaps]</option>
+                                    <option value="brific_3065">[Synthetic Demo] BR IFIC 3065 | CLEAN-PASS-GEO @ 14250 MHz [Clean Spectrum - 0 Overlaps]</option>
+                                </optgroup>
                             </select>
                         </div>
                         <div class="space-y-1">
@@ -1042,8 +1055,8 @@
                 // Slant range calculation (km)
                 const slantRangeKm = Math.sqrt(Math.max(0, R_e * R_e + R_s * R_s - 2 * R_e * R_s * cosG));
 
-                // Azimuth calculation
-                const azRad = Math.atan2(Math.sin(lonDiffRad), Math.sin(latRad) * Math.cos(lonDiffRad));
+                // Azimuth calculation (clockwise from True North: 0°=N, 90°=E, 180°=S, 270°=W)
+                const azRad = Math.atan2(Math.sin(lonDiffRad), -Math.sin(latRad) * Math.cos(lonDiffRad));
                 let azDeg = azRad * (180 / Math.PI);
                 if (azDeg < 0) azDeg += 360;
 
@@ -1127,11 +1140,14 @@
                 const delta = Math.max(0, Math.min(90, parseFloat(elevationDeg) || 0));
 
                 // Low-angle baseline L_low (0° <= δ <= 5°) per 4 kHz from ITU RR Article 21 Table 21-4
+                // Note: ITU RR Table 21-4 defines hard PFD limits starting at 1525 MHz; below 1525 MHz,
+                // coordination is governed by RR Article 9 / Appendix 5 triggers (M4/M15 applied as national screening baseline).
+                const hasTable21Limit = f >= 1525;
                 let lowLimit4kHz = -154.0;
                 let bandTableRef = "1525–2500 MHz (ITU RR Art. 21 Table 21-4: -154 to -144 dBW/m²/4kHz)";
                 if (f < 1525) {
                     lowLimit4kHz = -154.0;
-                    bandTableRef = "<1525 MHz UHF/L-Band (ITU RR Art. 21 / 5.317A: -154 to -144 dBW/m²/4kHz)";
+                    bandTableRef = "<1525 MHz VHF/UHF (No ITU Table 21-4 PFD limit; RR Art. 9/App. 5 trigger — M4/M15 -154 to -144 dBW/m²/4kHz national screening mask)";
                 } else if (f <= 2500) {
                     lowLimit4kHz = -154.0;
                     bandTableRef = "1525–2500 MHz S-Band (ITU RR Art. 21 Table 21-4: -154 to -144 dBW/m²/4kHz)";
@@ -1175,6 +1191,7 @@
 
                 const dynamicLimitDBW = lowLimit4kHz + angleOffsetDB + bwScaleDB;
                 return {
+                    hasTable21Limit: hasTable21Limit,
                     limitDBW: parseFloat(dynamicLimitDBW.toFixed(2)),
                     lowAngleLimitDBW: parseFloat((lowLimit4kHz + bwScaleDB).toFixed(2)),
                     highAngleLimitDBW: parseFloat((lowLimit4kHz + 10.0 + bwScaleDB).toFixed(2)),
@@ -2260,8 +2277,98 @@
         // 9. AUTOMATED AGENT SIMULATION & ISSUES PRODUCT
         // ==========================================
         const ITU_BATCH_CATALOG = {
+            "real_3076_rgs80e": {
+                id: "BR IFIC 3076 (Real MDB)",
+                date: "2026 (ific3076.mdb)",
+                section: "Real ITU Filing ntc_id 126545192 (Prov 9.1/IA)",
+                filingId: "RGS-G-80E (126545192)",
+                admin: "RUS",
+                satFreq: 2067.50,
+                satBw: 85.0,
+                satEirp: 60.99,
+                refBw: 4.0,
+                satLon: 80.0,
+                limit: -144.0,
+                ruleName: "M4 (-144) / ITU RR Art. 21 Table 21-4 Dynamic Mask (-150.6 dBW/m²/4kHz @ 11.8° elev)",
+                summary: "Real IFIC 3076 | ntc_id: 126545192 | RGS-G-80E (Admin: RUS) | Downlink: 2025–2110 MHz (85 MHz BW, PSD -51.6 dBW/Hz, Gain 33.3 dBi) | Orbit: GSO 80.0°E"
+            },
+            "real_3076_roumilsat": {
+                id: "BR IFIC 3076 (Real MDB)",
+                date: "2026 (ific3076.mdb)",
+                section: "Real ITU Filing ntc_id 125520158 (CR/C 9.6)",
+                filingId: "ROU-MILSATCOM6-21.25E (125520158)",
+                admin: "ROU",
+                satFreq: 7500.00,
+                satBw: 500.0,
+                satEirp: 75.0,
+                refBw: 4.0,
+                satLon: 21.25,
+                limit: -144.0,
+                ruleName: "M4 / ITU RR Art. 21 Table 21-4 SHF Fixed Service protection (-144 dBW/m²/4kHz)",
+                summary: "Real IFIC 3076 | ntc_id: 125520158 | ROU-MILSATCOM6-21.25E (Admin: ROU) | Downlink: 7250–7750 MHz | Orbit: GSO 21.25°E"
+            },
+            "real_3076_rgss23e": {
+                id: "BR IFIC 3076 (Real MDB)",
+                date: "2026 (ific3076.mdb)",
+                section: "Real ITU Filing ntc_id 125512028 (CR/C 9.6)",
+                filingId: "RGS-S-23E (125512028)",
+                admin: "RUS",
+                satFreq: 26375.00,
+                satBw: 2250.0,
+                satEirp: 74.02,
+                refBw: 4.0,
+                satLon: 23.0,
+                limit: -144.0,
+                ruleName: "M4 / ITU RR Art. 21 Ka-Band 25.25–27.5 GHz protection",
+                summary: "Real IFIC 3076 | ntc_id: 125512028 | RGS-S-23E (Admin: RUS) | Downlink: 25250–27500 MHz (Beam ISB, Gain 40.2 dBi) | Orbit: GSO 23.0°E"
+            },
+            "real_3074_chinasat33e": {
+                id: "BR IFIC 3074 (Real MDB)",
+                date: "2026 (ific3074.mdb)",
+                section: "Real ITU Filing ntc_id 324520184 (Notification 11.2)",
+                filingId: "CHINASAT-G-33.5E (324520184)",
+                admin: "CHN",
+                satFreq: 2185.00,
+                satBw: 30.0,
+                satEirp: 79.77,
+                refBw: 4.0,
+                satLon: 33.5,
+                limit: -144.0,
+                ruleName: "M4 / ITU RR Art. 21 Table 21-4 S-Band protection (-144 dBW/m²/4kHz)",
+                summary: "Real IFIC 3074 | ntc_id: 324520184 | CHINASAT-G-33.5E (Admin: CHN) | Downlink: 2170–2200 MHz (Beam SDG, Gain 44 dBi, PSD -39 dBW/Hz) | Orbit: GSO 33.5°E"
+            },
+            "real_3074_qatargov25e": {
+                id: "BR IFIC 3074 (Real MDB)",
+                date: "2026 (ific3074.mdb)",
+                section: "Real ITU Filing ntc_id 124520173 (CR/C 9.6)",
+                filingId: "QATARGOV-G1-25.5E (124520173)",
+                admin: "QAT",
+                satFreq: 2185.00,
+                satBw: 30.0,
+                satEirp: 68.0,
+                refBw: 4.0,
+                satLon: 25.5,
+                limit: -144.0,
+                ruleName: "M4 / ITU RR Art. 21 Table 21-4 protection (-144 dBW/m²/4kHz)",
+                summary: "Real IFIC 3074 | ntc_id: 124520173 | QATARGOV-G1-25.5E (Admin: QAT) | Downlink: 2170–2200 MHz | Orbit: GSO 25.5°E (Direct Finnish Meridian)"
+            },
+            "real_3074_hispasat58w": {
+                id: "BR IFIC 3074 (Real MDB)",
+                date: "2026 (ific3074.mdb)",
+                section: "Real ITU Filing ntc_id 124520178 (CR/C 9.6)",
+                filingId: "HISPASAT-4-58.5W (124520178)",
+                admin: "E",
+                satFreq: 11200.00,
+                satBw: 500.0,
+                satEirp: 72.0,
+                refBw: 4.0,
+                satLon: -58.5,
+                limit: -144.0,
+                ruleName: "Horizon Visibility Gate (GSO -58.5°W is below Finland's horizon: Elev < 0°)",
+                summary: "Real IFIC 3074 | ntc_id: 124520178 | HISPASAT-4-58.5W (Admin: E) | Downlink: 10950–11450 MHz | Orbit: GSO -58.5°W (Below Horizon in Finland)"
+            },
             "brific_3076": {
-                id: "BR IFIC 3076",
+                id: "BR IFIC 3076 [Synthetic Demo]",
                 date: "03 Nov 2026",
                 section: "Special Section CR/C 3076",
                 filingId: "FIN-SAT-3076",
@@ -2445,6 +2552,13 @@
 
         function handleAgentBatchChange() {
             const batchKey = document.getElementById('agent-batch-select').value;
+            if (batchKey === 'all_batches') {
+                const count = Object.keys(ITU_BATCH_CATALOG).length;
+                document.getElementById('batch-meta-description').innerHTML = `
+                    <span>Multi-Filing Full Sweep: <strong>All ${count} ITU BR IFIC Satellite Filings</strong> (88.1 MHz – 14.25 GHz) vs. <strong>All ${nationalStations.length} Protected Finnish Stations &amp; 561 Taajuusjakotaulukko Sub-Bands</strong></span>
+                `;
+                return;
+            }
             const batch = ITU_BATCH_CATALOG[batchKey] || ITU_BATCH_CATALOG["brific_3076"];
             const bInfo = engine.lookupBandAllocation(batch.satFreq);
             document.getElementById('batch-meta-description').innerHTML = `
@@ -2513,7 +2627,25 @@
             btn.disabled = true;
 
             const batchKey = document.getElementById('agent-batch-select').value;
-            const batch = ITU_BATCH_CATALOG[batchKey] || ITU_BATCH_CATALOG["brific_3076"];
+            const batchesToRun = batchKey === 'all_batches'
+                ? Object.values(ITU_BATCH_CATALOG)
+                : [ITU_BATCH_CATALOG[batchKey] || ITU_BATCH_CATALOG["brific_3076"]];
+            const batch = batchKey === 'all_batches'
+                ? {
+                    id: "ALL_ITU_BATCHES (3065–3076)",
+                    date: "03 Nov 2026",
+                    section: "Multi-Circular Full Sweep (7 Satellite Filings)",
+                    filingId: "ALL-7-FILINGS",
+                    admin: "MULTI (FIN/SUI/LUX/HOL/D/NOR/F)",
+                    satFreq: 2150.00,
+                    satBw: 20.0,
+                    satEirp: 55.0,
+                    refBw: 4.0,
+                    satLon: 25.0,
+                    limit: ITU_BATCH_CATALOG["brific_3076"].limit,
+                    ruleName: ITU_BATCH_CATALOG["brific_3076"].ruleName
+                }
+                : batchesToRun[0];
             currentAgentBatch = batch;
 
             const downgradeWifiEl = document.getElementById('cron-downgrade-wifi');
@@ -2531,63 +2663,66 @@
 
             setTimeout(() => {
                 step1.innerHTML = `<span class="text-emerald-600 font-semibold">✔ Retrieved ${batch.id} (${batch.section})</span>`;
-                step2.innerHTML = `<span class="text-sky-600 flex items-center gap-1"><i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Auto-comparing against ${nationalStations.length} protected stations...</span>`;
+                step2.innerHTML = `<span class="text-sky-600 flex items-center gap-1"><i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Auto-comparing ${batchesToRun.length} satellite filing(s) against ${nationalStations.length} protected stations...</span>`;
                 lucide.createIcons();
 
                 setTimeout(() => {
-                    // Compute screening issues for this specific batch
+                    // Compute screening issues across selected batch(es)
                     currentAgentIssues = [];
 
-                    nationalStations.forEach(station => {
-                        let targetFreq = station.rxFreqMHz > 0 ? station.rxFreqMHz : station.txFreqMHz;
-                        if (targetFreq <= 0) return; // Skip incomplete 0-MHz Excel rows
-                        const targetBw = station.bwMHz > 0 ? station.bwMHz : 0.025;
+                    batchesToRun.forEach(bItem => {
+                        nationalStations.forEach(station => {
+                            let targetFreq = station.rxFreqMHz > 0 ? station.rxFreqMHz : station.txFreqMHz;
+                            if (targetFreq <= 0) return; // Skip incomplete 0-MHz Excel rows
+                            const targetBw = station.bwMHz > 0 ? station.bwMHz : 0.025;
 
-                        if (!isStationWithinCronFreqScope(targetFreq, station.licenceClass)) {
-                            return;
-                        }
-
-                        let overlap = engine.calculateFrequencyOverlap(batch.satFreq, batch.satBw, targetFreq, targetBw);
-                        // Traficom rule: "Every TX is received in Finland"
-                        if (!overlap.hasOverlap && station.txFreqMHz > 0 && station.txFreqMHz !== station.rxFreqMHz) {
-                            const txOverlap = engine.calculateFrequencyOverlap(batch.satFreq, batch.satBw, station.txFreqMHz, targetBw);
-                            if (txOverlap.hasOverlap) {
-                                overlap = txOverlap;
-                                targetFreq = station.txFreqMHz;
-                            }
-                        }
-
-                        if (overlap.hasOverlap) {
-                            const bandInfo = engine.lookupBandAllocation(targetFreq);
-                            const applyWifiDowngrade = downgradeWifi && bandInfo.isWifiBt;
-                            const geom = engine.calculateGeometry(station.lat, station.lon, station.groundHeightM, batch.satLon);
-                            const agentStdMode = document.getElementById('agent-standard-select') ? document.getElementById('agent-standard-select').value : '-144';
-                            const stationLimit = agentStdMode === 'auto_itu21'
-                                ? engine.calculateITU21DynamicThreshold(targetFreq, geom.elevationDeg, batch.refBw).limitDBW
-                                : batch.limit;
-                            let pfdResult = null;
-                            let marginResult = null;
-                            if (geom.isVisible) {
-                                pfdResult = engine.calculatePFD(batch.satEirp, geom.slantRangeM, batch.satBw, batch.refBw);
-                                marginResult = engine.evaluateRegulatoryMargin(pfdResult.pfdRefDBW, stationLimit, applyWifiDowngrade);
+                            if (!isStationWithinCronFreqScope(targetFreq, station.licenceClass)) {
+                                return;
                             }
 
-                            currentAgentIssues.push({
-                                station: station,
-                                targetFreqMHz: targetFreq,
-                                targetBwMHz: targetBw,
-                                bandInfo: bandInfo,
-                                overlap: overlap,
-                                geom: geom,
-                                pfd: pfdResult,
-                                margin: marginResult,
-                                appliedLimitDBW: stationLimit,
-                                isExceeded: marginResult ? marginResult.isExceeded : false,
-                                isConcern: marginResult ? marginResult.isConcern : false,
-                                isLowSeverityWifiBt: marginResult ? marginResult.isLowSeverityWifiBt : false,
-                                status: marginResult ? marginResult.status : 'BELOW_HORIZON'
-                            });
-                        }
+                            let overlap = engine.calculateFrequencyOverlap(bItem.satFreq, bItem.satBw, targetFreq, targetBw);
+                            // Traficom rule: "Every TX is received in Finland"
+                            if (!overlap.hasOverlap && station.txFreqMHz > 0 && station.txFreqMHz !== station.rxFreqMHz) {
+                                const txOverlap = engine.calculateFrequencyOverlap(bItem.satFreq, bItem.satBw, station.txFreqMHz, targetBw);
+                                if (txOverlap.hasOverlap) {
+                                    overlap = txOverlap;
+                                    targetFreq = station.txFreqMHz;
+                                }
+                            }
+
+                            if (overlap.hasOverlap) {
+                                const bandInfo = engine.lookupBandAllocation(targetFreq);
+                                const applyWifiDowngrade = downgradeWifi && bandInfo.isWifiBt;
+                                const geom = engine.calculateGeometry(station.lat, station.lon, station.groundHeightM, bItem.satLon);
+                                const agentStdMode = document.getElementById('agent-standard-select') ? document.getElementById('agent-standard-select').value : '-144';
+                                const stationLimit = agentStdMode === 'auto_itu21'
+                                    ? engine.calculateITU21DynamicThreshold(targetFreq, geom.elevationDeg, bItem.refBw).limitDBW
+                                    : bItem.limit;
+                                let pfdResult = null;
+                                let marginResult = null;
+                                if (geom.isVisible) {
+                                    pfdResult = engine.calculatePFD(bItem.satEirp, geom.slantRangeM, bItem.satBw, bItem.refBw);
+                                    marginResult = engine.evaluateRegulatoryMargin(pfdResult.pfdRefDBW, stationLimit, applyWifiDowngrade);
+                                }
+
+                                currentAgentIssues.push({
+                                    filingBatch: bItem,
+                                    station: station,
+                                    targetFreqMHz: targetFreq,
+                                    targetBwMHz: targetBw,
+                                    bandInfo: bandInfo,
+                                    overlap: overlap,
+                                    geom: geom,
+                                    pfd: pfdResult,
+                                    margin: marginResult,
+                                    appliedLimitDBW: stationLimit,
+                                    isExceeded: marginResult ? marginResult.isExceeded : false,
+                                    isConcern: marginResult ? marginResult.isConcern : false,
+                                    isLowSeverityWifiBt: marginResult ? marginResult.isLowSeverityWifiBt : false,
+                                    status: marginResult ? marginResult.status : 'BELOW_HORIZON'
+                                });
+                            }
+                        });
                     });
 
                     step2.innerHTML = `<span class="text-emerald-600 font-semibold">✔ Scanned ${nationalStations.length} stations (${currentAgentIssues.length} issues flagged)</span>`;
@@ -2609,17 +2744,19 @@
 
                             const stationBulletList = topHits.map((hit, idx) => {
                                 const st = hit.station;
+                                const fb = hit.filingBatch || batch;
+                                const limUsed = hit.appliedLimitDBW !== undefined ? hit.appliedLimitDBW : fb.limit;
                                 const b = hit.bandInfo || engine.lookupBandAllocation(hit.targetFreqMHz);
                                 const sevStr = hit.isLowSeverityWifiBt
                                     ? `${hit.margin.marginDB >= 0 ? '+' : ''}${hit.margin.marginDB.toFixed(1)} dB [LOW SEVERITY: Wi-Fi / Bluetooth Band — ${b.note}]`
                                     : (hit.margin ? (hit.margin.isExceeded ? '+' + hit.margin.marginDB.toFixed(1) + ' dB (CRITICAL OVER LIMIT)' : hit.margin.isConcern ? hit.margin.marginDB.toFixed(1) + ' dB (POTENTIAL CONCERN / NEAR-LIMIT)' : hit.margin.marginDB.toFixed(1) + ' dB (Compliant)') : 'Below Horizon');
-                                return `${idx + 1}. Station ${st.stationId} (${st.licenceClass || 'Protected Station'})
+                                return `${idx + 1}. Station ${st.stationId} (${st.licenceClass || 'Protected Station'}) vs. Satellite [${fb.filingId}] (${fb.admin}, ${fb.satFreq.toFixed(2)} MHz)
    - Coordinates: ${st.lat.toFixed(4)}°N, ${st.lon.toFixed(4)}°E
    - National Assignment: ${hit.targetFreqMHz.toFixed(2)} MHz (BW: ${hit.targetBwMHz.toFixed(2)} MHz)
    - Taajuusjakotaulukko Band Owner: ${b.owner} (${b.bandStr} — ${b.usage})
    - Spectral Overlap: ${hit.overlap.overlapMHz.toFixed(2)} MHz
-   - Calculated PFD: ${hit.pfd ? hit.pfd.pfdRefDBW.toFixed(1) : 'N/A'} dBW/m² / ${batch.refBw}kHz
-   - Threshold Limit: ${batch.limit.toFixed(1)} dBW/m² (${batch.ruleName})
+   - Calculated PFD: ${hit.pfd ? hit.pfd.pfdRefDBW.toFixed(1) : 'N/A'} dBW/m² / ${fb.refBw}kHz
+   - Threshold Limit: ${limUsed.toFixed(1)} dBW/m² (${fb.ruleName})
    - Determination: ${sevStr}`;
                             }).join('\n\n');
 
@@ -2748,12 +2885,17 @@ This publication is recommended for administrative archiving.`;
                 const pfdText = issue.pfd ? `${issue.pfd.pfdRefDBW.toFixed(1)} dBW/m²` : 'N/A';
                 const marginText = issue.margin ? (issue.margin.marginDB >= 0 ? `+${issue.margin.marginDB.toFixed(1)} dB` : `${issue.margin.marginDB.toFixed(1)} dB`) : 'N/A';
                 const wifiNoteHtml = b.isWifiBt ? `<div class="text-[9px] text-indigo-700 font-semibold">Note: Wi-Fi / BT band (downgraded severity)</div>` : '';
+                const fBatch = issue.filingBatch || batch;
+                const limVal = issue.appliedLimitDBW !== undefined ? issue.appliedLimitDBW : fBatch.limit;
 
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-amber-50/40 transition";
                 tr.innerHTML = `
                     <td class="px-3 py-2 font-mono">${sevBadge}</td>
-                    <td class="px-3 py-2 font-mono text-slate-900 font-semibold">${s.stationId} <span class="text-[10px] text-slate-500 font-normal">(${s.licenceClass})</span></td>
+                    <td class="px-3 py-2 font-mono text-slate-900 font-semibold">
+                        <div>${s.stationId} <span class="text-[10px] text-slate-500 font-normal">(${s.licenceClass})</span></div>
+                        <div class="text-[9px] text-sky-700 font-semibold">Sat: ${fBatch.filingId} (${fBatch.satFreq} MHz)</div>
+                    </td>
                     <td class="px-3 py-2 text-slate-600 font-mono text-[11px]">${s.lat.toFixed(4)}, ${s.lon.toFixed(4)}</td>
                     <td class="px-3 py-2 text-slate-800 font-semibold">${issue.targetFreqMHz.toFixed(2)} MHz <span class="text-[10px] text-slate-500 font-normal">(${issue.targetBwMHz.toFixed(2)}M)</span></td>
                     <td class="px-3 py-2 text-[11px] max-w-xs">
@@ -2764,9 +2906,9 @@ This publication is recommended for administrative archiving.`;
                     <td class="px-3 py-2 text-amber-800 font-medium">${issue.overlap.overlapMHz.toFixed(2)} MHz</td>
                     <td class="px-3 py-2 text-slate-600 font-mono text-[11px]">${elevText}</td>
                     <td class="px-3 py-2 font-mono text-slate-800">${pfdText}</td>
-                    <td class="px-3 py-2 font-mono ${issue.isLowSeverityWifiBt ? 'text-indigo-700 font-bold' : (issue.isExceeded ? 'text-red-700 font-bold' : (issue.isConcern ? 'text-amber-800 font-semibold' : 'text-emerald-700'))}">${batch.limit.toFixed(0)} / ${marginText}</td>
+                    <td class="px-3 py-2 font-mono ${issue.isLowSeverityWifiBt ? 'text-indigo-700 font-bold' : (issue.isExceeded ? 'text-red-700 font-bold' : (issue.isConcern ? 'text-amber-800 font-semibold' : 'text-emerald-700'))}">${limVal.toFixed(1)} / ${marginText}</td>
                     <td class="px-3 py-2 text-center">
-                        <button onclick="inspectIssueInTab1('${s.stationId}')" class="text-sky-600 hover:text-sky-800 font-semibold text-[11px] underline">
+                        <button onclick="inspectIssueInTab1('${s.stationId}', ${idx})" class="text-sky-600 hover:text-sky-800 font-semibold text-[11px] underline">
                             Inspect
                         </button>
                     </td>
@@ -2777,14 +2919,16 @@ This publication is recommended for administrative archiving.`;
             lucide.createIcons();
         }
 
-        function inspectIssueInTab1(stationId) {
-            if (currentAgentBatch) {
-                document.getElementById('filing-id').value = currentAgentBatch.filingId;
-                document.getElementById('sat-freq').value = currentAgentBatch.satFreq.toFixed(2);
-                document.getElementById('sat-bw').value = currentAgentBatch.satBw.toFixed(1);
-                document.getElementById('sat-eirp').value = currentAgentBatch.satEirp.toFixed(1);
-                document.getElementById('ref-bw').value = currentAgentBatch.refBw.toFixed(1);
-                document.getElementById('sat-lon').value = currentAgentBatch.satLon.toFixed(1);
+        function inspectIssueInTab1(stationId, issueIdx = -1) {
+            const issueObj = (issueIdx >= 0 && currentAgentIssues && currentAgentIssues[issueIdx]) ? currentAgentIssues[issueIdx] : null;
+            const targetBatch = (issueObj && issueObj.filingBatch) ? issueObj.filingBatch : currentAgentBatch;
+            if (targetBatch) {
+                document.getElementById('filing-id').value = targetBatch.filingId;
+                document.getElementById('sat-freq').value = targetBatch.satFreq.toFixed(2);
+                document.getElementById('sat-bw').value = targetBatch.satBw.toFixed(1);
+                document.getElementById('sat-eirp').value = targetBatch.satEirp.toFixed(1);
+                document.getElementById('ref-bw').value = targetBatch.refBw.toFixed(1);
+                document.getElementById('sat-lon').value = targetBatch.satLon.toFixed(1);
             }
             loadStationIntoSingleScreening(stationId);
         }
@@ -2808,9 +2952,8 @@ This publication is recommended for administrative archiving.`;
             const dataLines = rowArrays.map(row =>
                 row.map((cell, colIdx) => formatCsvField(cell, quotedSet.has(colIdx))).join(',')
             );
-            // Prepend UTF-8 BOM + sep=, so Excel on Finnish/European Windows splits columns on first open
-            // and never traps an entire row inside Column A
-            const csvText = '\uFEFFsep=,\r\n' + [headerLine, ...dataLines].join('\r\n') + '\r\n';
+            // Standard clean CSV without messy separator row
+            const csvText = [headerLine, ...dataLines].join('\r\n') + '\r\n';
             const blob = new Blob([csvText], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
@@ -2873,11 +3016,7 @@ This publication is recommended for administrative archiving.`;
                     cleanedLines.push(unwrapped);
                 });
 
-                if (cleanedLines.length > 0 && !cleanedLines[0].toLowerCase().startsWith('sep=')) {
-                    cleanedLines.unshift('sep=,');
-                }
-
-                const outText = '\uFEFF' + cleanedLines.join('\r\n') + '\r\n';
+                const outText = cleanedLines.join('\r\n') + '\r\n';
                 const blob = new Blob([outText], { type: 'text/csv;charset=utf-8;' });
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
@@ -2899,11 +3038,13 @@ This publication is recommended for administrative archiving.`;
             const headers = ["Issue_Number", "Filing_ID", "Station_ID", "Licence_Class", "Latitude", "Longitude", "Station_Freq_MHz", "Channel_BW_MHz", "Band_Owner_Taajuusjakotaulukko", "Band_Usage", "Spectral_Overlap_MHz", "Elevation_Deg", "Slant_Range_km", "Calculated_PFD_dBW", "Limit_Threshold_dBW", "Margin_dB", "Concern_Level", "Wifi_Bluetooth_Low_Severity", "Limit_Exceeded"];
             const rows = currentAgentIssues.map((issue, idx) => {
                 const s = issue.station;
+                const fBatch = issue.filingBatch || batch;
+                const limVal = issue.appliedLimitDBW !== undefined ? issue.appliedLimitDBW : fBatch.limit;
                 const b = issue.bandInfo || engine.lookupBandAllocation(issue.targetFreqMHz);
                 const concernLevel = issue.isLowSeverityWifiBt ? "LOW_SEVERITY_WIFI_BT_BAND" : (issue.isExceeded ? "CRITICAL_EXCEEDANCE" : (issue.isConcern ? "POTENTIAL_CONCERN" : "COMPLIANT"));
                 return [
                     idx + 1,
-                    batch.filingId,
+                    fBatch.filingId,
                     String(s.stationId),
                     String(s.licenceClass),
                     Number(s.lat.toFixed(6)),
@@ -2916,7 +3057,7 @@ This publication is recommended for administrative archiving.`;
                     issue.geom ? Number(issue.geom.elevationDeg.toFixed(2)) : 0,
                     issue.geom ? Number(issue.geom.slantRangeKm.toFixed(1)) : 0,
                     issue.pfd ? Number(issue.pfd.pfdRefDBW.toFixed(2)) : 0,
-                    Number(batch.limit.toFixed(2)),
+                    Number(limVal.toFixed(2)),
                     issue.margin ? Number(issue.margin.marginDB.toFixed(2)) : 0,
                     concernLevel,
                     issue.isLowSeverityWifiBt ? "YES" : "NO",
